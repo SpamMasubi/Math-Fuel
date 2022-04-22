@@ -8,9 +8,13 @@ using Random = UnityEngine.Random;
 
 public class UI : MonoBehaviour
 {
+    /// <summary>
+    /// Tutorial Article for the template of this code: https://gamedevacademy.org/educational-games-math-tutorial/ 
+    /// </summary>
     public Text equationText; //equation text
     public Text[] answers; //array of answers
     public Text endText; //text displayed a the end of the game (win or game over)
+    public Text problemCount; //display the total amount of problems
 
     string operatorText = "";
 
@@ -34,6 +38,7 @@ public class UI : MonoBehaviour
 
     public void equationUI(MathProblems operation)
     {
+        //assign the operation symbols
         switch (operation.curOperation)
         {
             case MathsOperation.Addition:
@@ -46,7 +51,9 @@ public class UI : MonoBehaviour
                 operatorText = " x ";
                 break;
         }
+        //display the equation and the total number of problems
         equationText.text = operation.firstNumber + operatorText + operation.secondNumber;
+        problemCount.text = "Problems: " + GameManager.instance.numberOfProblems.ToString("00");
     }
 
     // sets the end text to display if the player won or lost
@@ -76,8 +83,9 @@ public class UI : MonoBehaviour
         int correctAnswer = int.Parse(operation.correctAnswer.ToString());
 
         // Create an array that contains all possible answers without the correct answer
-        int numAnswers = 20;
-        // 0-20 is 21 indices, so this will be one less because the correct answer is missing
+        int numAnswers = MainMenu.difficultRange;
+        // 0-max number base on difficulty mode (Easy: 10, Medium: 20, Hard:  30)
+        //(Easy: 11, Medium = 21, Hard: 31) are the indices, so this will be one less because the correct answer is missing
         int[] answerArray = new int[numAnswers];
         for (int i = 0; i < numAnswers; i++)
         {

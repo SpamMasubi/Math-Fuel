@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// Tutorial Article for the template of this code: https://gamedevacademy.org/educational-games-math-tutorial/ 
+    /// </summary>
     public static GameManager instance;
 
     public int numberOfProblems = 10;
@@ -11,6 +14,8 @@ public class GameManager : MonoBehaviour
     public PlayerController player; // player object
 
     public MathProblems mp;
+
+    public static bool isWinOrLose;
 
     void Awake()
     {
@@ -57,12 +62,14 @@ public class GameManager : MonoBehaviour
     // called when the player answers all the problems
     void Win()
     {
+        isWinOrLose = true;
         Time.timeScale = 0.0f;
         UI.instance.SetEndText(true);
     }
     // called if the remaining time on a problem reaches 0
     void Lose()
     {
+        isWinOrLose = true;
         Time.timeScale = 0.0f;
         UI.instance.SetEndText(false);
     }

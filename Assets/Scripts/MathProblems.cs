@@ -8,12 +8,38 @@ public class MathProblems : MonoBehaviour
     public int secondNumber;
     public int correctAnswer;
 
+    private int maxRange;
+
     [HideInInspector]public MathsOperation curOperation;
     // Start is called before the first frame update
     void Start()
     {
-        firstNumber = Random.Range(0, 10);
-        secondNumber = Random.Range(0, 10);
+        firstNumber = Random.Range(0, 11);
+        secondNumber = Random.Range(0, 11);
+    }
+
+    public void numberRangeRandomizer()
+    {
+        switch (MainMenu.difficultRange)
+        {
+            case 10:
+                maxRange = 11;
+                firstNumber = Random.Range(0, maxRange);
+                secondNumber = Random.Range(0, maxRange);
+                break;
+            case 20:
+                maxRange = 21;
+                firstNumber = Random.Range(0, maxRange);
+                secondNumber = Random.Range(0, maxRange);
+                break;
+            case 30:
+                maxRange = 31;
+                firstNumber = Random.Range(0, maxRange);
+                secondNumber = Random.Range(0, maxRange);
+                break;
+            default:
+                break;
+        }
     }
 
     public MathsOperation operation(string operationType)
@@ -48,8 +74,7 @@ public class MathProblems : MonoBehaviour
 
     public void newProblems()
     {
-        firstNumber = Random.Range(0, 10);
-        secondNumber = Random.Range(0, 10);
+        numberRangeRandomizer();
         operation(MainMenu.operationsType);
     }
 

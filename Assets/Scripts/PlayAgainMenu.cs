@@ -18,6 +18,7 @@ public class PlayAgainMenu : MonoBehaviour
 
     public void Retry()
     {
+        GameManager.isWinOrLose = false;
         menu.SetActive(false);
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("Gameplay");
@@ -26,6 +27,7 @@ public class PlayAgainMenu : MonoBehaviour
 
     public void Quit()
     {
+        GameManager.isWinOrLose = false;
         Destroy(GameManager.instance.gameObject);
         menu.SetActive(false);
         Time.timeScale = 1.0f;

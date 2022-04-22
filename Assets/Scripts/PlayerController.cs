@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
-
+    /// <summary>
+    /// Tutorial Article for the template of this code: https://gamedevacademy.org/educational-games-math-tutorial/ 
+    /// </summary>
     public enum PlayerState
     {
         Idle, //0
@@ -13,14 +16,14 @@ public class PlayerController : MonoBehaviour
         Crash, //3
     }
 
-    public PlayerState curState;            // current player state
-    public float moveSpeed;                 // force applied horizontally when moving
-    public float jumpSpeed;               // force applied upwards when jumping
-    public bool grounded;                   // is the player currently on the ground?
-    public float crashDuration;              // duration of crash
-    private float crashStartTime;            // time that the player was crash components
-    public Rigidbody2D rb;                 // Rigidbody2D component
-    public Animator anim;                   // Animator component
+    public PlayerState curState;// current player state
+    public float moveSpeed;// force applied horizontally when moving
+    public float jumpSpeed;// force applied upwards when jumping
+    public bool grounded;// is the player currently on the ground?
+    public float crashDuration;// duration of crash
+    private float crashStartTime;// time that the player was crash components
+    public Rigidbody2D rb;// Rigidbody2D component
+    public Animator anim;// Animator component
 
     private Vector2 screenBounds;
     private float objectWidth;
@@ -62,7 +65,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
         }
         // jump
-        if (Input.GetButtonDown("Jump") && !PauseMenu.isPause)
+        if (CrossPlatformInputManager.GetButtonDown("Jump") && !PauseMenu.isPause)
             Jump();
     }
 
@@ -104,7 +107,7 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         // get horizontal axis (A & D, Left Arrow & Right Arrow)
-        float dir = Input.GetAxis("Horizontal");
+        float dir = CrossPlatformInputManager.GetAxis("Horizontal");
 
         // flip player to face the direction they're moving
         if (dir > 0)
