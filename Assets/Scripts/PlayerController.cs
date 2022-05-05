@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // shoot a raycast down underneath the player
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 0.85f), Vector2.down, 0.3f);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 1.45f), Vector2.down, 1.0f);
         // did we hit anything?
         if (hit.collider != null)
         {
@@ -64,9 +64,13 @@ public class PlayerController : MonoBehaviour
         {
             grounded = false;
         }
-        // jump
-        if (CrossPlatformInputManager.GetButtonDown("Jump") && !PauseMenu.isPause)
-            Jump();
+
+        if (curState != PlayerState.Crash)
+        {
+            // jump
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && !PauseMenu.isPause)
+                Jump();
+        }
     }
 
     private void FixedUpdate()
@@ -100,7 +104,7 @@ public class PlayerController : MonoBehaviour
                 curState = PlayerState.Jump;
         }
         // tell the animator we've changed states
-        //anim.SetInteger("State", (int)curState);
+        anim.SetInteger("State", (int)curState);
     }
 
     // moves the player horizontally
@@ -111,9 +115,9 @@ public class PlayerController : MonoBehaviour
 
         // flip player to face the direction they're moving
         if (dir > 0)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         else if (dir < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
         // set rigidbody horizontal velocity
         rb.velocity = new Vector2(dir * moveSpeed, rb.velocity.y);
     }
@@ -146,20 +150,5 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Crash;
         rb.velocity = Vector2.down * 3;
         crashStartTime = Time.time;
-    }
-
-    // called when the player enters another object's collider
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        
-        // if the player hasn't already crashed, crash them if the object was an obstacle
-        if (curState != PlayerState.Crash)
-        {
-            if (col.CompareTag("Obstacle"))
-            {
-                Crash();
-            }
-        }
-        
     }
 }

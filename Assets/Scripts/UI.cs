@@ -13,13 +13,20 @@ public class UI : MonoBehaviour
     /// </summary>
     public Text equationText; //equation text
     public Text[] answers; //array of answers
+
+    public Image fuelBar;         // fuel bar image
+    private float fuelBarRate;    // 1.0 / time per problem
+
     public Text endText; //text displayed a the end of the game (win or game over)
     public Text problemCount; //display the total amount of problems
+    public GameObject addStage, subtractStage, multiplyStage;
 
     string operatorText = "";
 
     // instance
     public static UI instance;
+    public static bool startGame;
+
     void Awake()
     {
         // set instance to be this script
@@ -28,12 +35,16 @@ public class UI : MonoBehaviour
 
     void Start()
     {
+        startGame = true;
+        // set the fuel bar rate used to convert the time per problem (8 secs for example) and converts that to be used on a 0.0 - 1.0 scale
+        fuelBarRate = 1.0f / GameManager.instance.maxFuel;
         displayAnswers(FindObjectOfType<MathProblems>());
     }
 
     void Update()
     {
         equationUI(FindObjectOfType<MathProblems>());
+        fuelBar.fillAmount = fuelBarRate * GameManager.instance.remainingFuel;
     }
 
     public void equationUI(MathProblems operation)
@@ -43,12 +54,15 @@ public class UI : MonoBehaviour
         {
             case MathsOperation.Addition:
                 operatorText = " + ";
+                addStage.SetActive(true);
                 break;
             case MathsOperation.Subtraction:
                 operatorText = " - ";
+                subtractStage.SetActive(true);
                 break;
             case MathsOperation.Multiplication:
                 operatorText = " x ";
+                multiplyStage.SetActive(true);
                 break;
         }
         //display the equation and the total number of problems

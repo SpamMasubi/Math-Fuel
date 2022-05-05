@@ -41,14 +41,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 2294795241
     locked: 0
-  - name: Car
-    uniqueID: 396633993
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Fuel
     uniqueID: 2200069161
@@ -56,6 +53,9 @@ TagManager:
   - name: UI
     uniqueID: 3468532389
     locked: 0
-  - name: Obstacles
-    uniqueID: 3906144861
+  - name: Car
+    uniqueID: 396633993
+    locked: 0
+  - name: UI Buttons
+    uniqueID: 1399328949
     locked: 0
