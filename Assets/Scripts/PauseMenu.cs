@@ -12,6 +12,14 @@ public class PauseMenu : MonoBehaviour
 
     public static bool isPause;
 
+    AudioSource playSFX;
+    public AudioClip selectfx;
+
+    private void Start()
+    {
+        playSFX = GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -54,5 +62,9 @@ public class PauseMenu : MonoBehaviour
         isPause = false;
     }
 
+    public void PlaySFX()
+    {
+        playSFX.PlayOneShot(selectfx);
+    }
 
 }

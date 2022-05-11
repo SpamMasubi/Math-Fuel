@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 screenBounds;
     private float objectWidth;
     private float objectHeight;
+
+    AudioSource playSFX; //soundfx component
+    public AudioClip jumpSFX, crashSFX; //sfx clips
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
         objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        playSFX = GetComponent<AudioSource>();
     }
 
     void LateUpdate()
@@ -129,6 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             // add force upwards
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+            playSFX.PlayOneShot(jumpSFX); //play jump fx
         }
     }
 
@@ -150,5 +155,6 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Crash;
         rb.velocity = Vector2.down * 3;
         crashStartTime = Time.time;
+        playSFX.PlayOneShot(crashSFX); //play the crash sfx
     }
 }

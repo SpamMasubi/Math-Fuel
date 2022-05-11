@@ -50,12 +50,12 @@ TagManager:
   - name: Fuel
     uniqueID: 2200069161
     locked: 0
-  - name: UI
-    uniqueID: 3468532389
+  - name: UI Answer Text
+    uniqueID: 1399328949
     locked: 0
   - name: Car
     uniqueID: 396633993
     locked: 0
-  - name: UI Buttons
-    uniqueID: 1399328949
+  - name: UI
+    uniqueID: 3468532389
     locked: 0

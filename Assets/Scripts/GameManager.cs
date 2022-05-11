@@ -22,10 +22,14 @@ public class GameManager : MonoBehaviour
 
     public static bool isWinOrLose;
 
+    AudioSource playSFX;
+    public AudioClip correctSFX, wrongSFX, loseSFX, winSFX;
+
     void Awake()
     {
         // set instance to this script.
         instance = this;
+        playSFX = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -61,13 +65,15 @@ public class GameManager : MonoBehaviour
     void CorrectAnswer()
     {
         numberOfProblems -= 1;
-        remainingFuel += 3.0f;
+        remainingFuel += 3.0f; 
         // is this the last problem?
         if (numberOfProblems == 0) {
             Win();
         }
         else
         {
+            StartCoroutine(UI.instance.AnswerCorrectness(true));
+            playSFX.PlayOneShot(correctSFX); //play correct sound fx
             FindObjectOfType<MathProblems>().newProblems();
             UI.instance.displayAnswers(mp);
         }    
@@ -101,9 +107,11 @@ public class GameManager : MonoBehaviour
             IncorrectAnswer();
         }
     }
-    // called when the player enters the incorrect tube
+    // called when the player enters the incorrect fuel station
     void IncorrectAnswer()
     {
+        playSFX.PlayOneShot(wrongSFX); //play incorrect sound fx
+        StartCoroutine(UI.instance.AnswerCorrectness(false));
         player.Crash();
     }
 
@@ -113,13 +121,16 @@ public class GameManager : MonoBehaviour
         isWinOrLose = true;
         Time.timeScale = 0.0f;
         UI.instance.SetEndText(true);
+        playSFX.PlayOneShot(winSFX); //play Win Game fx
     }
-    // called if the remaining time on a problem reaches 0
+    // called if the remaining fuel reaches 0
     void Lose()
     {
         isWinOrLose = true;
         Time.timeScale = 0.0f;
         UI.instance.SetEndText(false);
+        UI.startGame = false;
+        playSFX.PlayOneShot(loseSFX); //play Lose Game fx
     }
 
 }

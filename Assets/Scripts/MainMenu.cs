@@ -10,12 +10,16 @@ public class MainMenu : MonoBehaviour
     public static string operationsType;
     public static int difficultRange;
 
+    AudioSource playSFX;
+    public AudioClip selectfx;
+
     // Start is called before the first frame update
     void Start()
     {
         operationsType = "No operation";
         difficultRange = 0;
         Debug.Log(operationsType);
+        playSFX = GetComponent<AudioSource>();
     }
 
     public void EasyMode()
@@ -78,5 +82,10 @@ public class MainMenu : MonoBehaviour
     void LoadGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void PlaySFX()
+    {
+        playSFX.PlayOneShot(selectfx);
     }
 }

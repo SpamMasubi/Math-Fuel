@@ -18,6 +18,7 @@ public class UI : MonoBehaviour
     private float fuelBarRate;    // 1.0 / time per problem
 
     public Text endText; //text displayed a the end of the game (win or game over)
+    public Text correctnessText; //text displayed when correctness
     public Text problemCount; //display the total amount of problems
     public GameObject addStage, subtractStage, multiplyStage;
 
@@ -88,6 +89,31 @@ public class UI : MonoBehaviour
             endText.color = Color.red;
         }
         GetComponent<PlayAgainMenu>().menu.SetActive(true);
+    } 
+    
+    // the text to display if the player got a correct answer or incorrect
+    public IEnumerator AnswerCorrectness(bool win)
+    {
+        if (!GameManager.isWinOrLose)
+        {
+            // enable the end text object
+            correctnessText.gameObject.SetActive(true);
+            // did the player win?
+            if (win)
+            {
+                correctnessText.text = "Good Job!";
+                correctnessText.color = Color.yellow;
+            }
+            // did the player lose?
+            else
+            {
+                correctnessText.text = "Try Again!";
+                correctnessText.color = Color.white;
+            }
+            yield return new WaitForSeconds(1);
+            // disable the end text object
+            correctnessText.gameObject.SetActive(false);
+        }
     }
 
     public void displayAnswers(MathProblems operation)
