@@ -22,11 +22,16 @@ public class UI : MonoBehaviour
     public Text problemCount; //display the total amount of problems
     public GameObject addStage, subtractStage, multiplyStage;
 
+    public GameObject confettis;
+
     string operatorText = "";
 
     // instance
     public static UI instance;
     public static bool startGame;
+
+    AudioSource playSFX;
+    public AudioClip confettifx;
 
     void Awake()
     {
@@ -40,6 +45,7 @@ public class UI : MonoBehaviour
         // set the fuel bar rate used to convert the time per problem (8 secs for example) and converts that to be used on a 0.0 - 1.0 scale
         fuelBarRate = 1.0f / GameManager.instance.maxFuel;
         displayAnswers(FindObjectOfType<MathProblems>());
+        playSFX = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -90,6 +96,12 @@ public class UI : MonoBehaviour
         }
         GetComponent<PlayAgainMenu>().menu.SetActive(true);
     } 
+
+    void createConfetti()
+    {
+        GameObject tempConfettis = Instantiate(confettis, correctnessText.gameObject.transform.position, Quaternion.identity);
+        Destroy(tempConfettis, 2f);
+    }
     
     // the text to display if the player got a correct answer or incorrect
     public IEnumerator AnswerCorrectness(bool win)
@@ -101,6 +113,8 @@ public class UI : MonoBehaviour
             // did the player win?
             if (win)
             {
+                createConfetti();
+                playSFX.PlayOneShot(confettifx);
                 correctnessText.text = "Good Job!";
                 correctnessText.color = Color.yellow;
             }

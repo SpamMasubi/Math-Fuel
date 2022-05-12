@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public static bool isWinOrLose;
 
     AudioSource playSFX;
-    public AudioClip correctSFX, wrongSFX, loseSFX, winSFX;
+    public AudioClip correctSFX, clappingSFX, wrongSFX, loseSFX, winSFX;
 
     void Awake()
     {
@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(UI.instance.AnswerCorrectness(true));
             playSFX.PlayOneShot(correctSFX); //play correct sound fx
+            playSFX.PlayOneShot(clappingSFX); //play correct sound fx
             FindObjectOfType<MathProblems>().newProblems();
             UI.instance.displayAnswers(mp);
         }    
