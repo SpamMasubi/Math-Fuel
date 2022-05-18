@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public static bool isWinOrLose;
 
     AudioSource playSFX;
-    public AudioClip correctSFX, clappingSFX, wrongSFX, loseSFX, winSFX;
+    public AudioClip correctSFX, clappingSFX, loseSFX, winSFX, uhohSFX;
 
     void Awake()
     {
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     // called when the player enters the incorrect fuel station
     void IncorrectAnswer()
     {
-        playSFX.PlayOneShot(wrongSFX); //play incorrect sound fx
+        playSFX.PlayOneShot(uhohSFX); //play uhoh sound fx
         StartCoroutine(UI.instance.AnswerCorrectness(false));
         player.Crash();
     }

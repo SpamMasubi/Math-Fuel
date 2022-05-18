@@ -73,7 +73,7 @@ public class UI : MonoBehaviour
                 break;
         }
         //display the equation and the total number of problems
-        equationText.text = operation.firstNumber + operatorText + operation.secondNumber;
+        equationText.text = operation.firstNumber + operatorText + operation.secondNumber + " = ?";
         problemCount.text = "Problems: " + GameManager.instance.numberOfProblems.ToString("00");
     }
 
@@ -97,7 +97,7 @@ public class UI : MonoBehaviour
         GetComponent<PlayAgainMenu>().menu.SetActive(true);
     } 
 
-    void createConfetti()
+    void createConfetti() //creating confetties 
     {
         GameObject tempConfettis = Instantiate(confettis, correctnessText.gameObject.transform.position, Quaternion.identity);
         Destroy(tempConfettis, 2f);
@@ -115,16 +115,16 @@ public class UI : MonoBehaviour
             {
                 createConfetti();
                 playSFX.PlayOneShot(confettifx);
-                correctnessText.text = "Good Job!";
-                correctnessText.color = Color.yellow;
+                correctnessText.text = "Good Job!" + "\n\n" + "The is correct!";
+                correctnessText.color = Color.green;
             }
             // did the player lose?
             else
             {
-                correctnessText.text = "Try Again!";
-                correctnessText.color = Color.white;
+                correctnessText.text = "Uh oh!" + "\n\n" + "Try Again!";
+                correctnessText.color = Color.red;
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
             // disable the end text object
             correctnessText.gameObject.SetActive(false);
         }

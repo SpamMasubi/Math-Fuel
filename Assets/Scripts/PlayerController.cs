@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private float objectHeight;
 
     AudioSource playSFX; //soundfx component
-    public AudioClip jumpSFX, crashSFX; //sfx clips
+    public AudioClip jumpSFX, wrongSFX; //sfx clips
     // Start is called before the first frame update
     void Start()
     {
@@ -119,9 +119,9 @@ public class PlayerController : MonoBehaviour
 
         // flip player to face the direction they're moving
         if (dir > 0)
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(1.7f, 1.7f, 1.7f);
         else if (dir < 0)
-            transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
+            transform.localScale = new Vector3(-1.7f, 1.7f, 1.7f);
         // set rigidbody horizontal velocity
         rb.velocity = new Vector2(dir * moveSpeed, rb.velocity.y);
     }
@@ -155,6 +155,6 @@ public class PlayerController : MonoBehaviour
         curState = PlayerState.Crash;
         rb.velocity = Vector2.down * 3;
         crashStartTime = Time.time;
-        playSFX.PlayOneShot(crashSFX); //play the crash sfx
+        playSFX.PlayOneShot(wrongSFX); //play the crash sfx
     }
 }

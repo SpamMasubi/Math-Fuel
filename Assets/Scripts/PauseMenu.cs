@@ -37,7 +37,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0.0f;
             isPause = true;
         }
-        else
+        else if(isPause && !GameManager.isWinOrLose)
         {
             pauseMenu.SetActive(false);
             Time.timeScale = 1.0f;
