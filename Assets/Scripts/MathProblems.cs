@@ -14,14 +14,19 @@ public class MathProblems : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        firstNumber = Random.Range(0, 11);
-        secondNumber = Random.Range(0, 11);
+        firstNumber = Random.Range(0, 6);
+        secondNumber = Random.Range(0, 6);
     }
 
     public void numberRangeRandomizer()
     {
         switch (MainMenu.difficultRange)
         {
+            case 5:
+                maxRange = 6;
+                firstNumber = Random.Range(0, maxRange);
+                secondNumber = Random.Range(0, maxRange);
+                break;
             case 10:
                 maxRange = 11;
                 firstNumber = Random.Range(0, maxRange);
@@ -29,11 +34,6 @@ public class MathProblems : MonoBehaviour
                 break;
             case 20:
                 maxRange = 21;
-                firstNumber = Random.Range(0, maxRange);
-                secondNumber = Random.Range(0, maxRange);
-                break;
-            case 30:
-                maxRange = 31;
                 firstNumber = Random.Range(0, maxRange);
                 secondNumber = Random.Range(0, maxRange);
                 break;
@@ -65,6 +65,20 @@ public class MathProblems : MonoBehaviour
                 curOperation = MathsOperation.Multiplication;
                 correctAnswer = firstNumber * secondNumber;
                 break;
+            case "Division":
+                curOperation = MathsOperation.Division;
+                if (secondNumber != 0)
+                {
+                    int divAns = firstNumber * secondNumber; //first multiply the first and second number
+                    firstNumber = divAns; //the total answer will become the first number;
+                    correctAnswer = firstNumber / secondNumber;
+                }
+                else
+                {
+                    numberRangeRandomizer();
+                    operation(MainMenu.operationsType);
+                }
+                break;
             default:
                 break;
         }
@@ -85,4 +99,5 @@ public enum MathsOperation
     Addition,
     Subtraction,
     Multiplication,
+    Division
 }

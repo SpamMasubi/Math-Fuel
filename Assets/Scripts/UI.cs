@@ -71,6 +71,10 @@ public class UI : MonoBehaviour
                 operatorText = " x ";
                 multiplyStage.SetActive(true);
                 break;
+            case MathsOperation.Division:
+                operatorText = " % ";
+                multiplyStage.SetActive(true);
+                break;
         }
         //display the equation and the total number of problems
         equationText.text = operation.firstNumber + operatorText + operation.secondNumber + " = ?";
@@ -115,7 +119,7 @@ public class UI : MonoBehaviour
             {
                 createConfetti();
                 playSFX.PlayOneShot(confettifx);
-                correctnessText.text = "Good Job!" + "\n\n" + "The is correct!";
+                correctnessText.text = "Good Job!" + "\n\n" + "This is correct!";
                 correctnessText.color = Color.green;
             }
             // did the player lose?
@@ -137,9 +141,9 @@ public class UI : MonoBehaviour
         int correctAnswer = int.Parse(operation.correctAnswer.ToString());
 
         // Create an array that contains all possible answers without the correct answer
-        int numAnswers = MainMenu.difficultRange;
-        // 0-max number base on difficulty mode (Easy: 10, Medium: 20, Hard:  30)
-        //(Easy: 11, Medium = 21, Hard: 31) are the indices, so this will be one less because the correct answer is missing
+        int numAnswers = ((MainMenu.difficultRange) ^ 2 + 1);
+        // 0-max number base on difficulty mode (Easy: 5, Medium: 10, Hard:  20)
+        //(Easy: 6, Medium = 11, Hard: 21) are the indices, so this will be one less because the correct answer is missing
         int[] answerArray = new int[numAnswers];
         for (int i = 0; i < numAnswers; i++)
         {

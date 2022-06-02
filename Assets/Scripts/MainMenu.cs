@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     public void EasyMode()
     {
         //Easy gameplay
-        difficultRange = 10;
+        difficultRange = 5;
         menus[0].SetActive(false);
         menus[1].SetActive(true);
     }
@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour
     public void MediumMode()
     {
         //Medium gameplay
-        difficultRange = 20;
+        difficultRange = 10;
         menus[0].SetActive(false);
         menus[1].SetActive(true);
     }
@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
     public void HardMode()
     {
         //Hard gameplay
-        difficultRange = 30;
+        difficultRange = 20;
         menus[0].SetActive(false);
         menus[1].SetActive(true);
     }
@@ -68,6 +68,15 @@ public class MainMenu : MonoBehaviour
     {
         //solve math problems with multiplication
         operationsType = "Multiplication";
+        Debug.Log(operationsType);
+        FindObjectOfType<MathProblems>().operation(operationsType);
+        Invoke("LoadGame", 1); //Load the game
+    }
+
+    public void Division()
+    {
+        //solve math problems with Division
+        operationsType = "Division";
         Debug.Log(operationsType);
         FindObjectOfType<MathProblems>().operation(operationsType);
         Invoke("LoadGame", 1); //Load the game
