@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour
     {
         operationsType = "No operation";
         difficultRange = 0;
-        Debug.Log(operationsType);
         playSFX = GetComponent<AudioSource>();
     }
 
@@ -50,7 +49,6 @@ public class MainMenu : MonoBehaviour
     {
         //solve math problems with additions
         operationsType = "Addition";
-        Debug.Log(operationsType);
         FindObjectOfType<MathProblems>().operation(operationsType);
         Invoke("LoadGame", 1); //Load the game
     }
@@ -59,7 +57,6 @@ public class MainMenu : MonoBehaviour
     {
         //solve math problems with subtractions
         operationsType = "Subtraction";
-        Debug.Log(operationsType);
         FindObjectOfType<MathProblems>().operation(operationsType);
         Invoke("LoadGame", 1); //Load the game
     }
@@ -68,7 +65,6 @@ public class MainMenu : MonoBehaviour
     {
         //solve math problems with multiplication
         operationsType = "Multiplication";
-        Debug.Log(operationsType);
         FindObjectOfType<MathProblems>().operation(operationsType);
         Invoke("LoadGame", 1); //Load the game
     }
@@ -77,7 +73,6 @@ public class MainMenu : MonoBehaviour
     {
         //solve math problems with Division
         operationsType = "Division";
-        Debug.Log(operationsType);
         FindObjectOfType<MathProblems>().operation(operationsType);
         Invoke("LoadGame", 1); //Load the game
     }

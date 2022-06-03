@@ -46,6 +46,7 @@ public class UI : MonoBehaviour
         fuelBarRate = 1.0f / GameManager.instance.maxFuel;
         displayAnswers(FindObjectOfType<MathProblems>());
         playSFX = GetComponent<AudioSource>();
+        stageBackground();
     }
 
     void Update()
@@ -61,19 +62,15 @@ public class UI : MonoBehaviour
         {
             case MathsOperation.Addition:
                 operatorText = " + ";
-                addStage.SetActive(true);
                 break;
             case MathsOperation.Subtraction:
                 operatorText = " - ";
-                subtractStage.SetActive(true);
                 break;
             case MathsOperation.Multiplication:
                 operatorText = " x ";
-                multiplyStage.SetActive(true);
                 break;
             case MathsOperation.Division:
                 operatorText = " % ";
-                multiplyStage.SetActive(true);
                 break;
         }
         //display the equation and the total number of problems
@@ -100,6 +97,24 @@ public class UI : MonoBehaviour
         }
         GetComponent<PlayAgainMenu>().menu.SetActive(true);
     } 
+
+    void stageBackground()
+    {
+        switch (MainMenu.difficultRange)
+        {
+            case 5:
+                addStage.SetActive(true);
+                break;
+            case 10:
+                subtractStage.SetActive(true);
+                break;
+            case 20:
+                multiplyStage.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
 
     void createConfetti() //creating confetties 
     {
@@ -141,7 +156,20 @@ public class UI : MonoBehaviour
         int correctAnswer = int.Parse(operation.correctAnswer.ToString());
 
         // Create an array that contains all possible answers without the correct answer
-        int numAnswers = ((MainMenu.difficultRange) ^ 2 + 1);
+        int numAnswers = 0;
+        if(operation.curOperation == MathsOperation.Addition)
+        {
+            numAnswers = MainMenu.difficultRange * 2;
+        }
+        else if(operation.curOperation == MathsOperation.Subtraction || operation.curOperation == MathsOperation.Division)
+        {
+            numAnswers = MainMenu.difficultRange;
+        }
+        else
+        {
+            numAnswers = ((int)Math.Pow(MainMenu.difficultRange, 2) + 1);
+        }
+        //int numAnswers = ((MainMenu.difficultRange) ^ 2 + 1);
         // 0-max number base on difficulty mode (Easy: 5, Medium: 10, Hard:  20)
         //(Easy: 6, Medium = 11, Hard: 21) are the indices, so this will be one less because the correct answer is missing
         int[] answerArray = new int[numAnswers];
